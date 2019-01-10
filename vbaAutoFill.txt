@@ -1,0 +1,32 @@
+﻿Sub Btn_Click()
+    
+    '工具-引用-选择使用【Microsoft Internet Controls】【Microsoft HTML Object Library】
+    Dim ie As InternetExplorer
+    Set ie = CreateObject("InternetExplorer.Application")
+    ie.Visible = True
+    ie.navigate "http://localhost:8080/ship-manage/ship/component/shipComponent/index2"
+    Do Until ie.readyState = READYSTATE_COMPLETE
+        DoEvents
+    Loop
+    
+    Set doc = ie.document
+
+    For i = 0 To 5
+        doc.getElementById("shipComponent2_add").Click
+        doc.getElementById("edit_componentCname").Value = "1"
+        doc.getElementById("categoryOrParent").Value = "2"
+        doc.getElementById("edit_componentModel").Value = "3"
+        doc.getElementById("edit_manufacturer").Value = "4"
+        doc.getElementById("edit_cwbtCode").Value = "KP-301-150-000"
+        doc.getElementById("componentType_id").Value = "E6596B08-92DF-444F-9A32-262CEC2AFB1B"
+        doc.getElementById("post_id").Value = "8ABF3656-179F-46B1-B43F-D6598637D91A"
+        doc.getElementById("shipComponent_save").Click
+        
+        T = Timer
+        Do While Timer < T + 1
+            DoEvents
+        Loop
+        
+        SendKeys ("{enter}")
+    Next i
+End Sub
